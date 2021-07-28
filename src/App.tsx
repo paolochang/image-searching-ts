@@ -4,8 +4,6 @@ import ImageViewer from "./components/ImageViewer";
 import SearchBar from "./components/SearchBar";
 import { GlobalStyles } from "./styles";
 
-console.log();
-
 function App() {
   const [loading, setLoading] = useState(false);
   const [page, setPage] = useState(1);
@@ -37,10 +35,6 @@ function App() {
       // });
       // response
       //   .then((response: any) => response.json())
-      //   .then((result) => {
-      //     console.log(result);
-      //     return result;
-      //   })
       //   .then((result) =>
       //     setImages((prev) => [...prev].concat(result.data.hits))
       //   )

@@ -39,8 +39,6 @@ const ImageViewer: React.FC<Props> = ({
   const viewerRef = useRef<HTMLDivElement>(null);
 
   const onClickHandler = (largeImageURL: string, tags: string) => {
-    // window.open(pageUrl, "_self");
-    // window.open(pageUrl);
     setImage({ largeImageURL, tags });
     setIsModal(true);
   };
@@ -48,17 +46,7 @@ const ImageViewer: React.FC<Props> = ({
   useEffect(() => {
     const onScrollHandler = () => {
       if (!loading && viewerRef.current) {
-        // const scrollY = window.scrollY;
-        // const { clientHeight, offsetHeight, scrollTop } = viewerRef.current;
-        // console.log(scrollY, offsetHeight + scrollTop, clientHeight);
-        // console.log(
-        //   window.innerHeight + window.scrollY,
-        //   document.body.offsetHeight
-        // );
         if (window.innerHeight + window.scrollY >= document.body.offsetHeight) {
-          console.log(
-            `REACHED BOTTOM @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@`
-          );
           setPage((prev: number) => prev + 1);
           setLoading(true);
         }
