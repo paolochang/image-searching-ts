@@ -18,9 +18,10 @@ function App() {
         }&q=${keyword.replace(" ", "+")}&page=${page}&image_type=photo`
       );
       if (page === 1) setImages(response.data.hits);
+      if (page > 26) return setLoading(false);
       else setImages((prev) => [...prev].concat(response.data.hits));
 
-      await new Promise((resolver) => setTimeout(resolver, 3000));
+      // await new Promise((resolver) => setTimeout(resolver, 1000));
 
       /**********************************************************************
        *  Using Promise
