@@ -17,11 +17,10 @@ function App() {
           process.env.REACT_APP_PIXABAY_KEY
         }&q=${keyword.replace(" ", "+")}&page=${page}&image_type=photo`
       );
-      if (page === 1) setImages(response.data.hits);
+      // await new Promise((resolver) => setTimeout(resolver, 3000));
       if (page > 26) return setLoading(false);
+      else if (page === 1) setImages(response.data.hits);
       else setImages((prev) => [...prev].concat(response.data.hits));
-
-      // await new Promise((resolver) => setTimeout(resolver, 1000));
 
       /**********************************************************************
        *  Using Promise

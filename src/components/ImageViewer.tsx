@@ -6,13 +6,13 @@ import LargeImage from "./LargeImage";
 
 const Container = styled.div`
   display: grid;
-  grid-template-columns: repeat(4, 1fr);
-  /* grid-template-rows: repeat(5, 15vw); */
+  grid-template-columns: repeat(3, 1fr);
+  grid-template-rows: repeat(5, 15vw);
   grid-auto-rows: minmax(auto, auto);
   grid-gap: 5px;
   align-items: center;
 `;
-const Image = styled.img`
+const StyledImage = styled.img`
   object-fit: scale-down;
   width: 100%;
   height: 100%;
@@ -60,8 +60,8 @@ const ImageViewer: React.FC<Props> = ({
     <Container ref={viewerRef}>
       {images &&
         images.map((image: any) => (
-          <Image
-            key={`${image.id}_${Date.now()}`}
+          <StyledImage
+            key={image.id}
             src={image.webformatURL}
             alt={image.id}
             onClick={() => onClickHandler(image.largeImageURL, image.tags)}
