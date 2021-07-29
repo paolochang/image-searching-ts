@@ -3,44 +3,33 @@ import axios from "axios";
 import ImageViewer from "./components/ImageViewer";
 import SearchBar from "./components/SearchBar";
 import { GlobalStyles } from "./styles";
+import { ImageInfoModel } from "./types";
 
-function App() {
+const App: React.FC = () => {
   const [loading, setLoading] = useState(false);
   const [page, setPage] = useState(1);
   const [keyword, setKeyword] = useState("");
-  const [images, setImages] = useState([]);
+  const [images, setImages] = useState<ImageInfoModel[]>([]);
 
   useEffect(() => {
     const fetchImages = async () => {
-      let response: any = await axios.get(
-        `https://pixabay.com/api/?key=${
-          process.env.REACT_APP_PIXABAY_KEY
-        }&q=${keyword.replace(" ", "+")}&page=${page}&image_type=photo`
-      );
-      // await new Promise((resolver) => setTimeout(resolver, 3000));
-      if (page > 26) return setLoading(false);
-      else if (page === 1) setImages(response.data.hits);
-      else setImages((prev) => [...prev].concat(response.data.hits));
-
-      /**********************************************************************
-       *  Using Promise
-       **********************************************************************/
-
-      // const response = new Promise((resolve, rejects) => {
-      //   fetch(
-      //     `https://pixabay.com/api/?key=${
-      //       process.env.REACT_APP_PIXABAY_KEY
-      //     }&q=${keyword.replace(" ", "+")}&page=${page}&image_type=photo`
-      //   );
-      // });
-      // response
-      //   .then((response: any) => response.json())
-      //   .then((result) =>
-      //     setImages((prev) => [...prev].concat(result.data.hits))
-      //   )
-      //   .then(() => setTimeout(() => {}, 2000));
-
-      setLoading(false);
+      try {
+        let response: any = await axios.get(
+          `https://pixabay.com/api/?key=${
+            process.env.REACT_APP_PIXABAY_KEY
+          }&q=${encodeURIComponent(keyword)}&page=${page}&image_type=photo`
+        );
+        if (response) {
+          if (page > 26) return setLoading(false);
+          else if (page === 1) setImages(response.data.hits);
+          else setImages((prev) => [...prev].concat(response.data.hits));
+          setLoading(false);
+        } else {
+          throw new Error(response);
+        }
+      } catch (err) {
+        console.error(err);
+      }
     };
 
     if (loading) {
@@ -67,6 +56,6 @@ function App() {
       />
     </div>
   );
-}
+};
 
 export default App;

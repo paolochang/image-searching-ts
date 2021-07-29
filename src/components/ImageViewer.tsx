@@ -2,6 +2,7 @@ import React, { useEffect } from "react";
 import { useState } from "react";
 import { useRef } from "react";
 import styled from "styled-components";
+import { ImageInfoModel } from "../types";
 import LargeImage from "./LargeImage";
 
 const Container = styled.div`
@@ -58,15 +59,14 @@ const ImageViewer: React.FC<Props> = ({
 
   return (
     <Container ref={viewerRef}>
-      {images &&
-        images.map((image: any) => (
-          <StyledImage
-            key={image.id}
-            src={image.webformatURL}
-            alt={image.id}
-            onClick={() => onClickHandler(image.largeImageURL, image.tags)}
-          />
-        ))}
+      {images?.map((image: ImageInfoModel) => (
+        <StyledImage
+          key={image.id}
+          src={image.webformatURL}
+          alt={image.tags}
+          onClick={() => onClickHandler(image.largeImageURL, image.tags)}
+        />
+      ))}
       {isModal && <LargeImage {...image} setIsModal={setIsModal} />}
     </Container>
   );
