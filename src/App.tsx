@@ -23,12 +23,13 @@ const App: React.FC = () => {
           if (page > 26) return setLoading(false);
           else if (page === 1) setImages(response.data.hits);
           else setImages((prev) => [...prev].concat(response.data.hits));
-          setLoading(false);
         } else {
           throw new Error(response);
         }
       } catch (err) {
         console.error(err);
+      } finally {
+        setLoading(false);
       }
     };
 
